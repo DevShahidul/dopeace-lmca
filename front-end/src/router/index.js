@@ -5,7 +5,7 @@ import Settings from "@/views/Settings.vue";
 import Students from "@/views/Students.vue";
 import Login from "@/views/Login.vue";
 import NotFound from "@/views/NotFound.vue";
-import {useAuthStore} from "@/stores/AuthStore";
+import {useAuthStore} from "@/stores";
 
 
 
@@ -59,12 +59,12 @@ const router = createRouter({
   ]
 })
 
-const authStore = useAuthStore()
-
+const authStore = useAuthStore();
+const authToken = authStore.getAuthToken();
 router.beforeEach((to, from, next) => {
-    if(to.meta.requiresAuth && !authStore.user.token){
+    if(to.meta.requiresAuth && !authToken){
         next({name: 'login'})
-    }else if(to.meta.requiresGuest && authStore.user.token){
+    }else if(to.meta.requiresGuest && authToken){
         next({name: 'dashboard'})
     }else{
         next();
