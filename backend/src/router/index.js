@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
-import {useAuthStore} from "@/stores";
+import {useAuthUserStore} from "@/stores";
 import AppLayout from "@/components/AppLayout.vue";
 import Students from "@/views/Students.vue";
 import Settings from "@/views/Settings.vue";
@@ -24,8 +24,8 @@ const router = createRouter({
                     component: Dashboard
                 },
                 {
-                    path: 'student',
-                    name: 'student',
+                    path: 'students',
+                    name: 'students',
                     component: Students
                 },
                 {
@@ -38,7 +38,8 @@ const router = createRouter({
         {
             path: '/login',
             name: 'login',
-            component: Login
+            component: Login,
+            meta: { layout: "auth" },
         },
         {
             path: '/:pathMatch(.*)',
@@ -48,17 +49,20 @@ const router = createRouter({
     ]
 })
 
-// const authStore = useAuthStore();
-// const authToken = authStore.getAuthToken();
-// router.beforeEach((to, from, next) => {
-//     if(to.meta.requiresAuth && !authToken){
-//         next({name: 'login'})
-//     }else if(to.meta.requiresGuest && authToken){
-//         next({name: 'dashboard'})
-//     }else{
-//         next();
-//     }
-// })
+
+// const authUserStore = useAuthUserStore();
+// const authUserStore.userId = authUserStore.getAuthToken();
+router.beforeEach((to, from, next) => {
+const authUserStore = useAuthUserStore();
+console.log(authUserStore.userId);
+    if(to.meta.requiresAuth && !authUserStore.userId){
+        next({name: 'login'})
+    }else if(to.meta.requiresGuest && authUserStore.userId){
+        next({name: 'dashboard'})
+    }else{
+        next();
+    }
+})
 
 // const router = createRouter({
 //   history: createWebHistory(import.meta.env.BASE_URL),

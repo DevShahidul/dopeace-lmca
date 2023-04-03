@@ -1,12 +1,15 @@
 <template>
-<h2>Dashboard {{test}}} </h2>
+    <app-layout>
+        <h2>Dashboard {{test}} </h2>
+    </app-layout>
 </template>
 
 <script setup>
 import {ref, computed} from "vue";
-import {useAuthStore} from "@/stores";
-const authStore = useAuthStore();
-const test = computed(() => authStore.authToken);
+import {useAuthUserStore} from "@/stores";
+import AppLayout from "@/components/AppLayout.vue";
+const authStore = useAuthUserStore();
+const test = computed(() => authStore.userToken);
 
 </script>
 
