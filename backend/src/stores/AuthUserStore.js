@@ -5,7 +5,7 @@ export const useAuthUserStore = defineStore('authUserStore', {
        return {
             firstName: '',
             lastName: '',
-            userId:12345
+            userId:null
        }
     },
     getters: {

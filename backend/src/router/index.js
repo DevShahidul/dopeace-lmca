@@ -6,6 +6,8 @@ import Students from "@/views/Students.vue";
 import Settings from "@/views/Settings.vue";
 import Login from "@/views/Login.vue";
 import NotFound from "@/views/NotFound.vue";
+import ResetPassword from "@/views/ResetPassword.vue";
+import ResetRequest from "@/views/ResetRequest.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +41,18 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: Login,
+            meta: { layout: "auth" },
+        },
+        {
+            path: '/request-password',
+            name: 'requestPassword',
+            component: ResetRequest,
+            meta: { layout: "auth" },
+        },
+        {
+            path: '/reset-password',
+            name: 'resetPassword',
+            component: ResetPassword,
             meta: { layout: "auth" },
         },
         {

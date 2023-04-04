@@ -4,8 +4,6 @@
                 <div class="flex items-center justify-center">
                     <main-logo class="w-48" />
                 </div>
-                <h1 class="text-center text-2xl">{{ title }}</h1>
-                <h5 v-if="leadText">{{leadText}}</h5>
                 <slot></slot>
         </div>
     </div>
@@ -13,18 +11,6 @@
 
 <script setup>
 import MainLogo from "@/components/MainLogo.vue";
-
-const {title, leadText} = defineProps({
-    title: {
-        type: String,
-        required: true,
-        default: 'Login'
-    },
-    leadText: {
-        type: String,
-        required: false
-    }
-})
 </script>
 
 <style scoped>

@@ -1,60 +1,65 @@
 <template>
-    <auth-layout title="Login">
-                <form class="mt-4" @submit.prevent="login">
-                    <label class="block">
-                        <span class="text-sm text-gray-700">Email</span>
-                        <input
-                            type="email"
-                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                            v-model="email"
-                        />
-                    </label>
+    <h1 class="text-center text-2xl">{{ title }}</h1>
+    <h5 v-if="leadText">{{leadText}}</h5>
+    <form class="mt-4" @submit.prevent="login">
+        <label class="block">
+            <span class="text-sm text-gray-700">Email</span>
+            <input
+                type="email"
+                class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                v-model="email"
+            />
+        </label>
 
-                    <label class="block mt-3">
-                        <span class="text-sm text-gray-700">Password</span>
-                        <input
-                            type="password"
-                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                            v-model="password"
-                        />
-                    </label>
+        <label class="block mt-3">
+            <span class="text-sm text-gray-700">Password</span>
+            <input
+                type="password"
+                class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                v-model="password"
+            />
+        </label>
 
-                    <div class="flex items-center justify-between mt-4">
-                        <div>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="text-indigo-600 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500" />
-                                <span class="mx-2 text-sm text-gray-600">Remember me</span>
-                            </label>
-                        </div>
+        <div class="flex items-center justify-between mt-4">
+            <div>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="text-indigo-600 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500" />
+                    <span class="mx-2 text-sm text-gray-600">Remember me</span>
+                </label>
+            </div>
 
-                        <div>
-                            <a
-                                class="block text-sm text-indigo-700 fontme hover:underline"
-                                href="#"
-                            >Forgot your password?</a
-                            >
-                        </div>
-                    </div>
+            <div>
+                <router-link
+                    class="block text-sm text-indigo-700 fontme hover:underline"
+                    to="/request-password"
+                >Forgot your password?</router-link
+                >
+            </div>
+        </div>
 
-                    <div class="mt-6">
-                        <button
-                            type="submit"
-                            class="w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none hover:bg-indigo-500"
-                        >
-                            Sign in
-                        </button>
-                    </div>
-                </form>
-
-    </auth-layout>
+        <div class="mt-6">
+            <button
+                type="submit"
+                class="w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none hover:bg-indigo-500"
+            >
+                Sign in
+            </button>
+        </div>
+    </form>
 </template>
 
-<script>
-import AuthLayout from "@/components/AuthLayout.vue";
+<script setup>
+import {ref} from "vue";
 
-export default {
-    name: "Login",
-    components: {AuthLayout}
+const title = ref("login");
+const leadText = ref(null);
+const email = ref('');
+const password = ref('');
+// Handle login form
+const login = () => {
+    const enteredEmail = email.value;
+    const enteredPassword = password.value;
+    console.log('Email:', enteredEmail, 'Password:', enteredPassword);
 }
 </script>
 

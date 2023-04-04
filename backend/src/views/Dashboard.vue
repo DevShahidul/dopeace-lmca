@@ -1,7 +1,5 @@
 <template>
-    <app-layout>
-        <h2>Dashboard {{test}} </h2>
-    </app-layout>
+    <h2>Dashboard {{test}} </h2>
 </template>
 
 <script setup>
