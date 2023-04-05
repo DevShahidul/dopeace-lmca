@@ -61,18 +61,20 @@
                     />
                 </svg>
             </button>
-
             <div class="relative">
-                <button
-                    @click="dropdownOpen = !dropdownOpen"
-                    class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none"
-                >
-                    <img
-                        class="object-cover w-full h-full"
-                        src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
-                        alt="Your avatar"
-                    />
-                </button>
+                <div class="flex items-center">
+                    <span>{{user?.name}}</span>
+                    <button
+                        @click="dropdownOpen = !dropdownOpen"
+                        class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none"
+                    >
+                        <img
+                            class="object-cover w-full h-full"
+                            src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
+                            alt="Your avatar"
+                        />
+                    </button>
+                </div>
 
                 <div
                     v-show="dropdownOpen"
@@ -102,10 +104,10 @@
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-600 hover:text-white"
                         >Products</a
                         >
-                        <router-link
-                            to="/"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-600 hover:text-white"
-                        >Log out</router-link
+                        <button
+                            @click="logOut"
+                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-sky-600 hover:text-white"
+                        >Log out</button
                         >
                     </div>
                 </transition>
@@ -115,11 +117,27 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
+import axios from "axios";
 import {useSidebar} from "@/hooks/useSidebar";
+
+const user = ref();
+onMounted(async () => {
+    const data = await axios.get("/api/user");
+    user.value = data.data;
+})
+
+// import { mapState } from 'pinia';
+// import {useAuthUserStore} from "@/stores";
+// const userAuth = useAuthUserStore();
+//
+// const userToken = computed(() => {
+//     return {...mapState(userAuth, 'authToken')}
+// })
 
 const dropdownOpen = ref(false);
 const { isOpen } = useSidebar();
+
 </script>
 
 <style scoped>

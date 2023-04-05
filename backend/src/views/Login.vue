@@ -1,13 +1,13 @@
 <template>
     <h1 class="text-center text-2xl">{{ title }}</h1>
     <h5 v-if="leadText">{{leadText}}</h5>
-    <form class="mt-4" @submit.prevent="login">
+    <form class="mt-4" @submit.prevent="handleLogin">
         <label class="block">
             <span class="text-sm text-gray-700">Email</span>
             <input
                 type="email"
                 class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                v-model="email"
+                v-model="form.email"
             />
         </label>
 
@@ -16,7 +16,7 @@
             <input
                 type="password"
                 class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                v-model="password"
+                v-model="form.password"
             />
         </label>
 
@@ -50,16 +50,26 @@
 
 <script setup>
 import {ref} from "vue";
+import axios from "axios";
+import {useRouter} from "vue-router";
+const router = useRouter();
 
 const title = ref("login");
 const leadText = ref(null);
-const email = ref('');
-const password = ref('');
+
+// Handle form input
+const form = ref({
+    email: '',
+    password: ''
+});
+
 // Handle login form
-const login = () => {
-    const enteredEmail = email.value;
-    const enteredPassword = password.value;
-    console.log('Email:', enteredEmail, 'Password:', enteredPassword);
+const handleLogin = async () => {
+    await axios.post('/login', {
+        email: form.value.email,
+        password: form.value.password
+    });
+    router.push('/dashboard');
 }
 </script>
 
